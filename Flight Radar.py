@@ -1,8 +1,6 @@
 """
 Author: @new92
 Flight Radar is a program which contains many useful tools for airplanes, airports, departures, arrivals etc.
-This program has been made for educational purposes and under no circumstances must be used for illegal purposes
-The author has no responsibility for the uses of this program !
 """
 
 #Imports
@@ -33,12 +31,16 @@ try:
     import pyflightdata
     from FlightRadar24.api import FlightRadar24API
     from pyflightdata import FlightData
+    from os import system
 except ImportError as imp:
-    print("Error while importing modules !")
+    print("[!] WARNING: Not all modules used in this program have been installed !")
     time.sleep(1)
-    print("Please enter the command: pip3 install -r requirementsF.txt")
-    time.sleep(2)
-    print("And execute again the program !")
+    print("[+] Ignoring Warning...")
+    time.sleep(1)
+    if platform.system == "Windows":
+        system("pip3 install -r requirements.txt")
+    else:
+        system("sudo pip3 install -r requirements.txt")
 
 #End of Imports
 
@@ -68,113 +70,113 @@ print("[13] Zones")
 print("[14] Current Flight(s)")
 print("[15] Exit")
 print("\n")
-option=input("Choose an option: ")
+option=input("[::] Choose an option: ")
 FRadar = FlightRadar24API()
 FData = FlightData()
 while option != "01" and option != "1" and option != "02" and option != "2" and option != "03" and option != "3" and option != "04" and option != "4" and option != "05" and option != "5" and option != "06" and option != "6" and option != "07" and option != "7" and option != "08" and option != "8" and option != "09" and option != "10" and option != "11" and option != "12" and option != "13" and option != "14" and option != "15":
     time.sleep(1)
-    print("Invalid option !")
-    option=input("Please enter again: ")
+    print("[!] Invalid option !")
+    time.sleep(1)
+    option=input("[+] Please enter again: ")
 if option == "01" or option == "1":
     time.sleep(1)
     airports=FRadar.get_airports()
     time.sleep(2)
-    print("Airports: "+str(airports))
+    print("[+] Airports: "+str(airports))
 elif option == "02" or option == "2":
     time.sleep(1)
     airlines=FRadar.get_airlines()
     time.sleep(2)
-    print("Airlines: "+str(airlines))
+    print("[+] Airlines: "+str(airlines))
 elif option == "03" or option == "3":
     time.sleep(1)
     flights=FRadar.get_flights()
     time.sleep(2)
-    print("Flights: "+str(flights))
+    print("[+] Flights: "+str(flights))
 elif option == "04" or option == "4":
     time.sleep(1)
-    IATA=input("Please enter the IATA of the airline: ")
+    IATA=input("[+] Please enter the IATA of the airline: ")
     time.sleep(2)
     IATAU1=IATA.upper()
-    ICAO=input("Please enter the ICAO of the airline: ")
+    ICAO=input("[+] Please enter the ICAO of the airline: ")
     time.sleep(2)
     ICAO1=ICAO.upper()
     logo=FRadar.get_airline_logo(IATAU1,ICAO1)
     time.sleep(1)
-    print("The logo is available in this link: "+str(logo))
+    print("[+] The logo is available in this link: "+str(logo))
 elif option == "05" or option == "5":
     time.sleep(1)
-    country_name=input("Please enter the name of the country: ")
+    country_name=input("[+] Please enter the name of the country: ")
     time.sleep(1)
     FRadar.get_country_flag(country_name)
     time.sleep(2)
-    print("The flag of the given country is available in this link: "+str(country_name))
+    print("[+] The flag of the given country is available in this link: "+str(country_name))
 elif option == "06" or option == "6":
     time.sleep(1)
-    FID=input("Please enter the flight ID: ")
+    FID=input("[+] Please enter the flight ID: ")
     time.sleep(1)
     dets=FRadar.get_flight_details(FID)
     time.sleep(2)
-    print("Details of the flight: "+str(dets))
+    print("[+] Details of the flight: "+str(dets))
 elif option == "07" or option == "7":
     time.sleep(1)
-    IATA1=input("Please enter the IATA of the airport: ")
+    IATA1=input("[+] Please enter the IATA of the airport: ")
     time.sleep(1)
     IATAU=IATA1.upper()
     airport_dets=FData.get_airport_details(IATAU)
     time.sleep(2)
-    print("Details of the given airport: "+str(airport_dets))
+    print("[+] Details of the given airport: "+str(airport_dets))
 elif option == "08" or option == "8":
     time.sleep(1)
-    IATA2=input("Please enter the IATA of the airport: ")
+    IATA2=input("[+] Please enter the IATA of the airport: ")
     time.sleep(1)
     IATAU2=IATA2.upper()
     arrivals=FData.get_airport_arrivals(IATAU2)
     time.sleep(2)
-    print("Arrivals of the given airport: "+str(arrivals))
+    print("[+] Arrivals of the given airport: "+str(arrivals))
 elif option == "09" or option == "9":
     time.sleep(1)
-    IATA3=input("Please enter the IATA of the airport: ")
+    IATA3=input("[+] Please enter the IATA of the airport: ")
     time.sleep(1)
     IATAU3=IATA3.upper()
     departures=FData.get_airport_departures(IATAU3)
     time.sleep(2)
-    print("Departures of the given airport: "+str(departures))
+    print("[+] Departures of the given airport: "+str(departures))
 elif option == "10":
     time.sleep(1)
-    IATA4=input("Please enter the IATA of the airport: ")
+    IATA4=input("[+] Please enter the IATA of the airport: ")
     time.sleep(1)
     IATAU4=IATA4.upper()
     weather=FData.get_airport_weather(IATAU4)
     time.sleep(2)
-    print("The weather of the given airport: "+str(weather))
+    print("[+] The weather of the given airport: "+str(weather))
 elif option == "11":
     time.sleep(1)
-    IATA5=input("Please enter the IATA of the airport: ")
+    IATA5=input("[+] Please enter the IATA of the airport: ")
     time.sleep(1)
     IATAU5=IATA5.upper()
     reviews=FData.get_airport_reviews(IATAU5)
     time.sleep(2)
-    print("Reviews for the given airport: "+str(reviews))
+    print("[+] Reviews for the given airport: "+str(reviews))
 elif option == "12":
     time.sleep(1)
-    IATA6=input("Please enter the IATA of the airport: ")
+    IATA6=input("[+] Please enter the IATA of the airport: ")
     time.sleep(1)
     IATAU6=IATA6.upper()
     stats=FData.get_airport_stats()
     time.sleep(2)
-    print("Stats for the given airport: "+str(stats))
+    print("[+] Stats for the given airport: "+str(stats))
 elif option == "13":
     time.sleep(1)
     zones=FRadar.get_zones()
     time.sleep(2)
-    print("Zones: "+str(zones))
+    print("[+] Zones: "+str(zones))
 elif option == "14":
     time.sleep(1)
     flight=FRadar.get_real_time_flight_tracker_config()
     time.sleep(2)
-    print("Current Flight: "+str(flight))
+    print("[+] Current Flight: "+str(flight))
 else:
-    print("Exiting...")
-    time.sleep(2)
-    quit(0)
+    print("[!] Exiting...")
+    exit(0)
 #End of the Program
