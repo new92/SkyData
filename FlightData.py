@@ -24,7 +24,6 @@ try:
     from art import tprint
     from FlightRadar24.api import FlightRadar24API
     from pyflightdata import FlightData
-    from os import system
 except ImportError as imp:
     print("[!] WARNING: Not all modules used in this program have been installed !")
     time.sleep(1)
