@@ -1,6 +1,6 @@
 """
 Author: new92
-Github: https://www.github.com/new92
+Github: @new92
 SkyData: is a program which display's information about airplanes, airports, airlines but it can also be used to track a specific flight !
 """
 
@@ -28,7 +28,7 @@ except ImportError as imp:
         system("python -m pip install requirements.txt")
         pass
     elif platform.system() == 'Windows':
-        system("pip3 install -r requirements.txt")
+        system("pip install -r requirements.txt")
         pass
 
 #LOGO
@@ -47,6 +47,7 @@ print("""
 print("\n")
 print("[+] Program which display's information about airports, airplanes, airlines etc.")
 print("\n")
+print("[+] Author: new92")
 print("[+] Github: @new92")
 print("\n")
 print("[1] Airports")
