@@ -19,7 +19,7 @@ try:
 except ImportError as imp:
     print("[!] WARNING: Not all packages used in this program have been installed !")
     sleep(1)
-    print("[+] Ignoring Warning...")
+    print("[+] Ignoring warning...")
     sleep(1)
     if sys.platform.startswith('linux') == True:
         system("sudo pip install -r requirements.txt")
