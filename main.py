@@ -1,7 +1,7 @@
 """
 Author: new92
 Github: @new92
-SkyData: is a program which display's information about airplanes, airports, airlines but it can also be used to track a specific flight !
+SkyData: Is a program which display's information about airplanes, airports, airlines but it can also be used to track a specific flight !
 """
 
 #Imports
