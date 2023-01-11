@@ -11,7 +11,6 @@ try:
     from os import system
     from time import sleep
     import os
-    import json
     import pyflightdata
     import webbrowser
     from FlightRadar24.api import FlightRadar24API
