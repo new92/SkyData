@@ -22,8 +22,17 @@ except ImportError as imp:
     print("[+] Ignoring warning...")
     sleep(1)
     if sys.platform.startswith('linux') == True:
-        system("sudo pip install -r requirements.txt")
-        pass
+        if os.geteuid() != 0:
+            print("[!] Root user not detected !")
+            sleep(2)
+            print("[+] Please enable root access with the command: sudo su")
+            sleep(2)
+            print("[+] And execute again the script !")
+            sleep(1)
+            exit(0)
+        else:
+            system("sudo pip install -r requirements.txt")
+            pass
     elif sys.platform == 'darwin':
         system("python -m pip install requirements.txt")
         pass
