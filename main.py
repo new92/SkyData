@@ -4,7 +4,6 @@ Github: @new92
 SkyData: Is a program which displays information about airplanes, airlines, airports but it can also be used to track a specific flight !
 """
 
-#Imports
 try:
     import sys
     import platform
@@ -43,13 +42,13 @@ def ProgInfo():
     lang = 'Python'
     language = 'en-US'
     name = 'Sky Data'
-    lns = 364
+    lns = 363
     stars = 7
     forks = 1
     print("[+] Author: "+str(author))
     print("[+] License: "+str(license))
     print("[+] Programming language(s) used: "+str(lang))
-    print("[+] Program's language(s): "+str(language))
+    print("[+] Language(s): "+str(language))
     print("[+] Program's name: "+str(name))
     print("[+] Lines of code: "+str(lines))
     print("[+] Github repo stars: "+str(stars))
@@ -65,7 +64,6 @@ print("""
 ╚═════╝░╚═╝░░╚═╝░░░╚═╝░░░      ╚═════╝░╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░╚═╝
 """)
 
-#Main program
 
 print("\n")
 print("[+] Program which display's information about airports, airplanes, airlines etc.")
