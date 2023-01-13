@@ -24,22 +24,37 @@ except ImportError as imp:
         if os.geteuid() != 0:
             print("[!] Root user not detected !")
             sleep(2)
-            print("[+] Please enable root access with the command: sudo su")
-            sleep(2)
-            print("[+] And execute again the script !")
+            print("[+] Trying to enable root access...")
             sleep(1)
-            exit(0)
+            system(sudo su)
+            system("sudo pip install -r requirements.txt")
         else:
             system("sudo pip install -r requirements.txt")
-            pass
+            
     elif sys.platform == 'darwin':
         system("python -m pip install requirements.txt")
-        pass
+        
     elif platform.system() == 'Windows':
         system("pip install -r requirements.txt")
-        pass
 
-#LOGO
+def ProgInfo():
+    author = 'new92'
+    license = 'MIT'
+    lang = 'Python'
+    language = 'en-US'
+    name = 'Sky Data'
+    lns = 364
+    stars = 7
+    forks = 1
+    print("[+] Author: "+str(author))
+    print("[+] License: "+str(license))
+    print("[+] Programming language(s) used: "+str(lang))
+    print("[+] Program's language(s): "+str(language))
+    print("[+] Program's name: "+str(name))
+    print("[+] Lines of code: "+str(lines))
+    print("[+] Github repo stars: "+str(stars))
+    print("[+] Github repo forks: "+str(forks))
+    
 
 print("""
 ░██████╗██╗░░██╗██╗░░░██╗      ██████╗░░█████╗░████████╗░█████╗░
@@ -95,7 +110,7 @@ if option == 1:
         sleep(1)
         print(ex)
         sleep(2)
-        print("[+] Quiting...")
+        print("[+] Exiting...")
         quit(0)
 
 elif option == 2:
@@ -108,7 +123,7 @@ elif option == 2:
         sleep(1)
         print(ex)
         sleep(2)
-        print("[+] Quiting...")
+        print("[+] Exiting...")
         quit(0)
 
 elif option == 3:
@@ -126,7 +141,7 @@ elif option == 3:
         sleep(1)
         print(ex)
         sleep(2)
-        print("[+] Quiting...")
+        print("[+] Exiting...")
         quit(0)
 
 elif option == 4:
@@ -153,7 +168,7 @@ elif option == 4:
         sleep(1)
         print(ex)
         sleep(2)
-        print("[+] Quiting...")
+        print("[+] Exiting...")
         quit(0)
 
 elif option == 5:
@@ -172,7 +187,7 @@ elif option == 5:
         sleep(1)
         print(ex)
         sleep(2)
-        print("[+] Quiting...")
+        print("[+] Exiting...")
         quit(0)
 elif option == 6:
     try:
@@ -190,7 +205,7 @@ elif option == 6:
         sleep(1)
         print(ex)
         sleep(2)
-        print("[+] Quiting...")
+        print("[+] Exiting...")
         quit(0)
 
 elif option == 7:
@@ -210,7 +225,7 @@ elif option == 7:
         sleep(1)
         print(ex)
         sleep(2)
-        print("[+] Quiting...")
+        print("[+] Exiting...")
         quit(0)
 
 elif option == 8:
@@ -230,7 +245,7 @@ elif option == 8:
         sleep(1)
         print(ex)
         sleep(2)
-        print("[+] Quiting...")
+        print("[+] Exiting...")
         quit(0)
 
 elif option == 9:
@@ -250,7 +265,7 @@ elif option == 9:
         sleep(1)
         print(ex)
         sleep(2)
-        print("[+] Quiting...")
+        print("[+] Exiting...")
         quit(0)
 
 elif option == 10:
@@ -270,7 +285,7 @@ elif option == 10:
         sleep(1)
         print(ex)
         sleep(2)
-        print("[+] Quiting...")
+        print("[+] Exiting...")
         quit(0)
 
 elif option == 11:
@@ -290,7 +305,7 @@ elif option == 11:
         sleep(1)
         print(ex)
         sleep(2)
-        print("[+] Quiting...")
+        print("[+] Exiting...")
         quit(0)
 
 elif option == 12:
@@ -310,7 +325,7 @@ elif option == 12:
         sleep(1)
         print(ex)
         sleep(2)
-        print("[+] Quiting...")
+        print("[+] Exiting...")
         quit(0)
 
 elif option == 13:
@@ -323,7 +338,7 @@ elif option == 13:
         sleep(1)
         print(ex)
         sleep(2)
-        print("[+] Quiting...")
+        print("[+] Exiting...")
         quit(0)
 
 elif option == 14:
@@ -336,7 +351,7 @@ elif option == 14:
         sleep(1)
         print(ex)
         sleep(2)
-        print("[+] Quiting...")
+        print("[+] Exiting...")
         quit(0)
 
 elif option == 15:
@@ -344,5 +359,5 @@ elif option == 15:
     quit(0)
 
 else:
-    print("[+] Quiting...")
+    print("[+] Exiting...")
     quit(0)
