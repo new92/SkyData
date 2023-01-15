@@ -76,7 +76,7 @@ print("""
 
 
 print("\n")
-print("[+] Program which display's information about airports, airplanes, airlines etc.")
+print("[+] Script which display's information about airports, airplanes, airlines etc.")
 print("\n")
 print("[+] Author: new92")
 print("[+] Github: @new92")
