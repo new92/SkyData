@@ -4,7 +4,7 @@
 What we missed the most the years of continuous lockdowns are the trips all around the world. 
 So in order to take a trip you have to organise and plan it. And there this script will be useful.
 So just by following the steps shown in the <a href='https://github.com/new92/SkyData#installation-'>Installation</a> section you can have access to a variety 
-of data for airports, flights, arrivals, departures etc.
+of data for airports, flights, arrivals, departures etc. So with the information provided by the script you can plan your trip perfectly !
 
 > Example: I've planned a huge trip to Europe, Asia, US etc. and booked a flight a long time ago 
 (lets say 2 months ago) and I can't remember the time or/and the gate of my departure. 
