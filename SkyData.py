@@ -1,7 +1,7 @@
 """
 Author: new92
 Github: @new92
-SkyData: Is a program which displays information about airplanes, airlines, airports but it can also be used to track a specific flight !
+SkyData: Is a Python script which displays information about airplanes, airlines, airports but it can also be used to track a specific flight !
 """
 
 try:
@@ -50,14 +50,16 @@ def ProgInfo():
     lang = 'Python'
     language = 'en-US'
     name = 'Sky Data'
-    lns = 369
+    desc = 'Script which displays information about airplanes, airlines, airports but it can also be used to track a specific flight !'
+    lns = 371
     stars = 7
     forks = 1
     print("[+] Author: "+str(author))
     print("[+] License: "+str(license))
     print("[+] Programming language(s) used: "+str(lang))
     print("[+] Language(s): "+str(language))
-    print("[+] Program's name: "+str(name))
+    print("[+] Script's name: "+str(name))
+    print("[+] Script's description: "+str(desc))
     print("[+] Lines of code: "+str(lines))
     print("[+] Github repo stars: "+str(stars))
     print("[+] Github repo forks: "+str(forks))
