@@ -31,7 +31,7 @@ of my friend's flight.
 - [@new92](https://www.github.com/new92)
 
 
-## Badges 📛
+## Badges 🪙
 
 
 
