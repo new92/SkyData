@@ -50,7 +50,7 @@ def ProgInfo():
     lang = 'Python'
     language = 'en-US'
     name = 'Sky Data'
-    lns = 363
+    lns = 369
     stars = 7
     forks = 1
     print("[+] Author: "+str(author))
