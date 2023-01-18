@@ -53,7 +53,7 @@ def ProgInfo():
     desc = 'Script which displays information about airplanes, airlines, airports but it can also be used to track a specific flight !'
     lns = 371
     stars = 7
-    forks = 1
+    forks = 2
     print("[+] Author: "+str(author))
     print("[+] License: "+str(license))
     print("[+] Programming language(s) used: "+str(lang))
