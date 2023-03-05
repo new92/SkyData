@@ -61,7 +61,7 @@ def ProgInfo():
     print(f"[+] Natural language: {language}")
     print(f"[+] Script's name: {name}")
     print(f"[+] Script's description: {desc}")
-    print("[+] Lines of code: "+str(lines))
+    print(f"[+] Lines of code: {str(lines)")
     print("[+] Github repo stars: "+str(stars))
     print("[+] Github repo forks: "+str(forks))
     
