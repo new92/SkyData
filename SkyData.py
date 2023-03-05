@@ -74,8 +74,6 @@ print("""
 ██████╔╝██║░╚██╗░░░██║░░░      ██████╔╝██║░░██║░░░██║░░░██║░░██║
 ╚═════╝░╚═╝░░╚═╝░░░╚═╝░░░      ╚═════╝░╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░╚═╝
 """)
-
-
 print("\n")
 print("[+] Script which display's information about airports, airplanes, airlines etc.")
 print("\n")
