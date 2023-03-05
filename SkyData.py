@@ -57,7 +57,7 @@ def ProgInfo():
     print("[+] Author: "+author)
     print("[+] License: "+license)
     print("[+] Programming language used: "+lang)
-    print("[+] Natural language: "+str(language)
+    print("[+] Natural language: "+language)
     print("[+] Script's name: "+str(name))
     print("[+] Script's description: "+str(desc))
     print("[+] Lines of code: "+str(lines))
