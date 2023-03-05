@@ -52,7 +52,7 @@ def ProgInfo():
     language = 'en-US'
     name = 'Sky Data'
     desc = 'Script which displays information about airplanes, airlines, airports but it can also be used to track a specific flight !'
-    lns = 371
+    lns = 372
     stars = 8
     forks = 2
     print(f"[+] Author: {author}")
@@ -61,7 +61,7 @@ def ProgInfo():
     print(f"[+] Natural language: {language}")
     print(f"[+] Script's name: {name}")
     print(f"[+] Script's description: {desc}")
-    print(f"[+] Lines of code: {str(lines)")
+    print(f"[+] Lines of code: {str(lines)}")
     print("[+] Github repo stars: "+str(stars))
     print("[+] Github repo forks: "+str(forks))
     
