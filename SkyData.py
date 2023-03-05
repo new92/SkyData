@@ -59,7 +59,7 @@ def ProgInfo():
     print(f"[+] License: {license}")
     print(f"[+] Programming language used: {lang}")
     print(f"[+] Natural language: {language}")
-    print("[+] Script's name: "+name)
+    print(f"[+] Script's name: name")
     print("[+] Script's description: "+desc)
     print("[+] Lines of code: "+str(lines))
     print("[+] Github repo stars: "+str(stars))
