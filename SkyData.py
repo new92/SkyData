@@ -47,7 +47,7 @@ except ImportError as imp:
 
 def ProgInfo():
     author = 'new92'
-    license = 'MIT'
+    license1 = 'MIT'
     lang = 'Python'
     language = 'en-US'
     name = 'Sky Data'
@@ -55,8 +55,8 @@ def ProgInfo():
     lns = 371
     stars = 8
     forks = 2
-    print("[+] Author: "+author)
-    print("[+] License: "+license)
+    print(f"[+] Author: {author}")
+    print(f"[+] License: "+license)
     print("[+] Programming language used: "+lang)
     print("[+] Natural language: "+language)
     print("[+] Script's name: "+name)
