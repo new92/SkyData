@@ -54,7 +54,7 @@ def ProgInfo():
     lns = 371
     stars = 8
     forks = 2
-    print("[+] Author: "+str(author))
+    print("[+] Author: "+str(author)
     print("[+] License: "+str(license))
     print("[+] Programming language used: "+str(lang))
     print("[+] Natural language: "+str(language))
