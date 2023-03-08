@@ -67,6 +67,7 @@ def ProgInfo():
     print(f"[+] Script's name: {name}")
     print(f"[+] Script's description: {desc}")
     print(f"[+] File size: {fsize}")
+    print(f"[+] Path to the script: {os.path.abspath(f)}")
     print(f"[+] Lines of code: {str(lines)}")
     print(f"[+] Github repo stars: {str(stars)}")
     print(f"[+] Github repo forks: {str(forks)}")
