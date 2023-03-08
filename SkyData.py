@@ -52,6 +52,7 @@ def ProgInfo():
     language = 'en-US'
     name = 'Sky Data'
     desc = 'Script which displays information about airplanes, airlines, airports but it can also be used to track a specific flight !'
+    f = '/SkyData/SkyData.py'
     lns = 370
     stars = 8
     forks = 2
