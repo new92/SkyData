@@ -45,7 +45,7 @@ of my friend's flight.
 
 [![Open issues](https://img.shields.io/github/issues-raw/new92/SkyData?style=for-the-badge)](https://github.com/new92/SkyData/issues)
 
-[![Closed issues](https://img.shields.io/github/issues-closed-raw/new92/SkyData)](https://github.com/new92/SkyData/issues)
+[![Closed issues](https://img.shields.io/github/issues-closed-raw/new92/SkyData?style=for-the-badge)](https://github.com/new92/SkyData/issues)
 
 [![Open pull requests](https://img.shields.io/github/issues-pr-raw/new92/SkyData)](https://github.com/new92/SkyData/pulls)
 
