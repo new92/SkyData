@@ -37,7 +37,7 @@ of my friend's flight.
 
 [![License](https://img.shields.io/github/license/new92/SkyData?style=for-the-badge)](https://github.com/new92/SkyData/blob/main/LICENSE)
 
-[![Code size](https://img.shields.io/github/languages/code-size/new92/SkyData)](https://img.shields.io/github/languages/code-size/new92/SkyData)
+[![Code size](https://img.shields.io/github/languages/code-size/new92/SkyData?style=for-the-badge)](https://img.shields.io/github/languages/code-size/new92/SkyData)
 
 [![Number of files](https://img.shields.io/github/directory-file-count/new92/SkyData)](https://img.shields.io/github/directory-file-count/new92/SkyData)
 
