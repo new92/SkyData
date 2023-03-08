@@ -53,7 +53,7 @@ of my friend's flight.
 
 [![Followers](https://img.shields.io/github/followers/new92?style=for-the-badge)](https://github.com/new92?tab=followers)
 
-[![Forks](https://img.shields.io/github/forks/new92/SkyData?style=social)](https://github.com/new92/SkyData/network/members)
+[![Forks](https://img.shields.io/github/forks/new92/SkyData?style=for-the-badge)](https://github.com/new92/SkyData/network/members)
 
 [![Stars](https://img.shields.io/github/stars/new92/SkyData?style=social)](https://github.com/new92/SkyData/stargazers)
 
