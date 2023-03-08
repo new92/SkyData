@@ -64,10 +64,10 @@ of my friend's flight.
 
 ## FAQ ❓
 
-#### ❔ How can I know if the data are reliable ?
+#### ❔ Are the data reliable ?
 
 - Well the data are coming from the FlightRadar24 API which is using the ADS-B technology,
-the MLAT and satellites.
+the MLAT and satellites. So, yes the data are reliable 🙂
 
 #### ❔ Where can I find the IATA and ICAO codes ?
 
