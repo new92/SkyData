@@ -59,7 +59,7 @@ of my friend's flight.
 
 [![Watchers](https://img.shields.io/github/watchers/new92/SkyData?style=for-the-badge)](https://img.shields.io/github/watchers/new92/SkyData?style=social)
 
-[![Discussions](https://img.shields.io/github/discussions/new92/SkyData)](https://github.com/new92/SkyData/discussions)
+[![Discussions](https://img.shields.io/github/discussions/new92/SkyData?style=for-the-badge)](https://github.com/new92/SkyData/discussions)
 
 
 ## FAQ ❓
