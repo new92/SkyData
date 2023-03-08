@@ -57,7 +57,7 @@ def ProgInfo():
         fsize = (os.stat(f)).st_size
     else:
         fsize = 0
-    lns = 370
+    lns = 382
     stars = 8
     forks = 2
     print(f"[+] Author: {author}")
