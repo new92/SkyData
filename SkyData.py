@@ -57,7 +57,7 @@ def ProgInfo():
     if os.path.exists(os.path.abspath(f)):
         fsize = (os.stat(f)).st_size
     else:
-        fsize = 0
+        fsize = 1
     lns = 383
     stars = 8
     forks = 2
