@@ -41,7 +41,7 @@ of my friend's flight.
 
 [![Number of files](https://img.shields.io/github/directory-file-count/new92/SkyData?style=for-the-badge)](https://img.shields.io/github/directory-file-count/new92/SkyData)
 
-[![Repository size](https://img.shields.io/github/repo-size/new92/SkyData)](https://img.shields.io/github/repo-size/new92/SkyData)
+[![Repository size](https://img.shields.io/github/repo-size/new92/SkyData?style=for-the-badge)](https://img.shields.io/github/repo-size/new92/SkyData)
 
 [![Open issues](https://img.shields.io/github/issues-raw/new92/SkyData)](https://github.com/new92/SkyData/issues)
 
