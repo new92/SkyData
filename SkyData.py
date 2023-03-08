@@ -52,7 +52,7 @@ def ProgInfo():
     language = 'en-US'
     name = 'Sky Data'
     desc = 'Script which displays information about airplanes, airlines, airports but it can also be used to track a specific flight !'
-    lns = 372
+    lns = 370
     stars = 8
     forks = 2
     print(f"[+] Author: {author}")
