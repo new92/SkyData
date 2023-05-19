@@ -51,9 +51,9 @@ def ProgInfo():
     license1 = 'MIT'
     lang = 'Python'
     language = 'en-US'
-    name = 'Sky Data'
+    name = 'SkyData'
     desc = 'Script which displays information about airplanes, airlines, airports but it can also be used to track a specific flight !'
-    f = '/SkyData/SkyData.py'
+    f = name+'.py'
     if os.path.exists(os.path.abspath(f)):
         fsize = (os.stat(f)).st_size
     else:
