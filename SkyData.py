@@ -99,7 +99,7 @@ def ProgInfo():
     api = None
     lns = 461
     stars = 8
-    forks = 2
+    forks = 5
     print(f"[+] Author: {author}")
     print(f"[+] License: {lice}")
     print(f"[+] Programming language used: {lang}")
