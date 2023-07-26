@@ -10,24 +10,34 @@ try:
     import sys
     from time import sleep
     if sys.version_info[0] < 3:
-        print("[!] Error ! This script requires Python version 3.X ! ")
+        print("[!] Error ! SkyData requires Python version 3.X ! ")
+        sleep(2)
         print("""[+] Instructions to download Python 3.x : 
         Linux: apt install python3
         Windows: https://www.python.org/downloads/
         MacOS: https://docs.python-guide.org/starting/install3/osx/""")
-        print("[*] Please install the Python 3 and then use this script ✅")
+        sleep(2)
+        print("[*] Please install Python 3 and then use SkyData ✅")
         sleep(2)
         print("[+] Exiting...")
         sleep(1)
         quit(0)
+    from tqdm import tqdm
+    total_mods = 8
+    bar = tqdm(total=total_mods, desc='Loading modules', unit='module')
+    for _ in range(total_mods):
+        sleep(0.75)
+        bar.update(1)
+    bar.close()
     import platform
+    import string
     from os import system
     import os
     import webbrowser
-    from FlightRadar24.api import FlightRadar24API
+    from FlightRadar24 import FlightRadar24API
     from pyflightdata import FlightData
-except ImportError:
-    print("[!] WARNING: Not all packages used in Researcher have been installed !")
+except ImportError or ModuleNotFoundError:
+    print("[!] WARNING: Not all packages used in SkyData have been installed !")
     sleep(2)
     print("[+] Ignoring warning...")
     sleep(1)
@@ -60,6 +70,11 @@ except ImportError:
                     print("[2] Exit")
                     opt=int(input("[>] Please enter again a number (from the above ones): "))
                 if opt == 1:
+                    def fpath(fname: str):
+                        for root, dirs, files in os.walk('/'):
+                            if fname in files:
+                                return os.path.abspath(os.path.join(root, fname))
+                        return None
                     def rmdir(dire):
                         DIRS = []
                         for root, dirs, files in os.walk(dire):
@@ -70,7 +85,7 @@ except ImportError:
                         for i in range(len(DIRS)):
                             os.rmdir(DIRS[i])
                         os.rmdir(dire)
-                    rmdir(os.path.abspath('SkyData'))
+                    rmdir(fpath('SkyData'))
                     print("[✓] Files and dependencies uninstalled successfully !")
                 else:
                     print("[+] Exiting...")
@@ -84,35 +99,71 @@ except ImportError:
     elif platform.system() == 'Windows':
         system("pip install -r requirements.txt")
 
-def ProgInfo():
+print(f"[SUCCESS] Successfully loaded modules ✓")
+sleep(1)
+
+def fpath(fname: str):
+    for root, dirs, files in os.walk('/'):
+        if fname in files:
+            return os.path.abspath(os.path.join(root, fname))
+    return None
+
+UPPERS = list(string.ascii_uppercase)
+DIGS = list(string.digits)
+
+def ScriptInfo():
     author = 'new92'
     lice = 'MIT'
     lang = 'Python'
     language = 'en-US'
-    name = 'Sky Data'
-    desc = 'Script which displays information about airplanes, airlines, airports but it can also be used to track a specific flight !'
-    f = '/SkyData/SkyData.py'
-    if os.path.exists(os.path.abspath(f)):
-        fsize = (os.stat(f)).st_size
+    name = 'SkyData'
+    f = name + '.py'
+    lns = 1015
+    if os.path.exists(fpath(f)):
+        fsize = os.stat(f).st_size
     else:
         fsize = 0
     api = None
-    lns = 461
     stars = 8
     forks = 5
+    issues = 0
+    clissues = 0
+    prs = 0
+    clprs = 3
+    discs = 1
     print(f"[+] Author: {author}")
     print(f"[+] License: {lice}")
-    print(f"[+] Programming language used: {lang}")
-    print(f"[+] Natural language: {language}")
+    print(f"[+] Programming language(s) used: {lang}")
+    print(f"[+] Natural language(s): {language}")
     print(f"[+] Script's name: {name}")
-    print(f"[+] Script's description: {desc}")
     print(f"[+] File size: {fsize}")
-    print(f"[+] Path to the script: {os.path.abspath(f)}")
+    print(f"[+] Path to the script: {fpath(f)}")
     print(f"[+] Lines of code: {lns}")
     print(f"[+] API(s) used: {api}")
-    print(f"[+] Github repo stars: {stars}")
-    print(f"[+] Github repo forks: {forks}")
-    
+    print(f"|======|GITHUB REPO INFO|======|")
+    print(f"[+] Stars: {stars}")
+    print(f"[+] Forks: {forks}")
+    print(f"[+] Open issues: {issues}")
+    print(f"[+] Closed issues: {clissues}")
+    print(f"[+] Open pull requests: {prs}")
+    print(f"[+] Closed pull requests: {clprs}")
+    print(f"[+] Discussions: {discs}")
+
+def clear():
+    if platform.system() == 'Windows':
+        system('cls')
+    else:
+        system('clear')
+
+def checkID(fid:str) -> bool:
+    return fid == None or fid == '' or len(fid) < 1 or len(fid) > 7 or fid[:2] not in UPPERS or len([i for i in fid[3:] if i in DIGS]) != len(fid[3:])
+
+def checkIATA(iata: str) -> bool:
+    return iata == None or iata == '' or len(iata) != 3 or len([i for i in range(len(iata)) if i in UPPERS]) != len(iata)
+
+def checkICAO(icao: str) -> bool:
+    return icao == None or icao == '' or len(icao) != 4 or len([i for i in range(len(icao)) if i in UPPERS]) != len(icao)
+
 def banner() -> str:
     return """
     ░██████╗██╗░░██╗██╗░░░██╗      ██████╗░░█████╗░████████╗░█████╗░
@@ -122,337 +173,840 @@ def banner() -> str:
     ██████╔╝██║░╚██╗░░░██║░░░      ██████╔╝██║░░██║░░░██║░░░██║░░██║
     ╚═════╝░╚═╝░░╚═╝░░░╚═╝░░░      ╚═════╝░╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░╚═╝
     """
+    
 def main():
     print(banner())
     print("\n")
-    print("[+] Script which display's information about airports, airplanes, airlines etc.")
+    print("[+] SkyData is a python script which display's information about airports, flights, airlines etc.")
     print("\n")
     print("[+] Author: new92")
     print("[+] Github: @new92")
     print("\n")
-    print("[1] Airports")
-    print("[2] Airlines")
-    print("[3] Flights")
-    print("[4] Airline Logo")
-    print("[5] Country Flags")
-    print("[6] Information for specific flights")
-    print("[7] Information for specific airports")
-    print("[8] Arrivals of an airport")
-    print("[9] Departures of an airport")
-    print("[10] Weather of an airport")
-    print("[11] Airport reviews")
-    print("[12] Airport stats")
-    print("[13] Zones")
-    print("[14] Current Flight(s)")
+    print("[1] Display airports")
+    print("[2] Display airlines")
+    print("[3] Display flights")
+    print("[4] Get aircraft info")
+    print("[5] Display countries")
+    print("[6] Show information for specific flights    [<--]")
+    print("[7] Show information for specific airports")
+    print("[8] Show arrivals of an airport")
+    print("[9] Show departures of an airport")
+    print("[10] Show weather conditions of an airport")
+    print("[11] Display airport reviews")
+    print("[12] Display airport stats")
+    print("[13] Show zones  [<--]")
+    print("[14] Display current flight(s)   [<--]")
     print("[15] Display IATA and ICAO codes for airports")
-    print("[16] Exit")
+    print("[16] Display the landed aircrafts on a specific airport")
+    print("[17] Get history of aircraft by flight number")
+    print("[18] Exit")
     print("\n")
     option=int(input("[::] Please enter a number (from the above ones): "))
-    while option < 1 or option > 16 or option == None:
+    while option < 1 or option > 18 or option == None:
         sleep(1)
         print("[!] Invalid option !")
         sleep(1)
         option=int(input("[::] Please enter again a number (from the above ones): "))
 
-    FRadar = FlightRadar24API()
-    FData = FlightData()
+    fr = FlightRadar24API()
+    fdata = FlightData()
 
     if option == 1:
-        if platform.system() == 'Windows':
-            system("cls")
-        else:
-            system("clear")
+        clear()
+        country=str(input("[::] Country >>> "))
+        while country == None or country == '':
+            print("[!] This field can't be blank !")
+            sleep(1)
+            country=str(input("[::] Country >>> "))
+        country = country.capitalize().strip()
         try:
-            print(f"[+] Airports: {FRadar.get_airports()}")
+            airports = fdata.get_airports(country=country)
+            print(f"[+] Airports:")
+            print("-"*10)
+            print("\n")
+            for i in range(len(airports)):
+                if 'name' in airports[i]:
+                    print(f"[+] Name: {airports[i]['name']}")
+                if 'iata' in airports[i]:
+                    print(f"[+] IATA: {airports[i]['iata']}")
+                if 'lat' in airports[i]:
+                    print(f"[+] Latitude: {airports[i]['lat']}")
+                if 'lon' in airports[i]:
+                    print(f"[+] Longitude: {airports[i]['lon']}")
+                print("-"*15)
+                sleep(0.75)
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(f"[*] Error message ==> {ex}")
             sleep(2)
-            print("[+] Exiting...")
-            quit(0)
+            print("[1] Return to menu")
+            print("[2] Exit")
+            num=int(input("[>] Please enter a number (from the above ones): "))
+            while num < 1 or num > 2 or num == None:
+                if num == None:
+                    print("[!] This field can't be empty !")
+                else:
+                    print("[!] Invalid number !")
+                    sleep(1)
+                    print("[*] Acceptable numbers: [1/2]")
+                sleep(1)
+                print("[1] Return to menu")
+                print("[2] Exit")
+                num=int(input("[>] Please enter again a number (from the above ones): "))
+            if num == 1:
+                clear()
+                main()
+            else:
+                clear()
+                print("[+] Exiting...")
+                sleep(1)
+                print("[+] See you next time 👋")
+                sleep(1)
+                quit(0)
+        fdata.clear_last_request()
 
     elif option == 2:
-        if platform.system() == 'Windows':
-            system("cls")
-        else:
-            system("clear")
+        clear()
         try:
-            print(f"[+] Airlines: {FRadar.get_airlines()}")
+            airlines = fdata.get_airlines()
+            print(f"[+] Airlines:")
+            print("-"*10)
+            print("\n")
+            for i in range(len(airlines)):
+                if 'title' in airlines[i]:
+                    print(f"[+] Name: {airlines[i]['title']}")
+                if 'airline-code' in airlines[i]:
+                    print(f"[+] Airline code: {airlines[i]['airline-code']}")
+                if 'img' in airlines[i]:
+                    print(f"[+] Image: {airlines[i]['img']}")
+                if 'callsign' in airlines[i]:
+                    print(f"[+] Call sing: {airlines[i]['callsign']}")
+                if 'fleet-size' in airlines[i]:
+                    print(f"[+] Fleet size: {airlines[i]['fleet-size']}")
+                print("-"*15)
+                sleep(0.75)
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(f"[*] Error message ==> {ex}")
             sleep(2)
-            print("[+] Exiting...")
-            quit(0)
+            print("[1] Return to menu")
+            print("[2] Exit")
+            num=int(input("[>] Please enter a number (from the above ones): "))
+            while num < 1 or num > 2 or num == None:
+                if num == None:
+                    print("[!] This field can't be empty !")
+                else:
+                    print("[!] Invalid number !")
+                    sleep(1)
+                    print("[*] Acceptable numbers: [1/2]")
+                sleep(1)
+                print("[1] Return to menu")
+                print("[2] Exit")
+                num=int(input("[>] Please enter again a number (from the above ones): "))
+            if num == 1:
+                clear()
+                main()
+            else:
+                clear()
+                print("[+] Exiting...")
+                sleep(1)
+                print("[+] See you next time 👋")
+                sleep(1)
+                quit(0)
+        fdata.clear_last_request()
 
     elif option == 3:
-        if platform.system() == 'Windows':
-            system("cls")
-        else:
-            system("clear")
-        ICAO=str(input("[::] Please enter the ICAO code of the airport: "))
-        while ICAO == None or len(ICAO) > 4:
-            print("[!] Invalid ICAO code !")
+        clear()
+        key=str(input("[::] Flight number >>> "))
+        while key == None or key == '':
+            print("[!] This field can't be blank !")
             sleep(1)
-            ICAO=str(input("[::] Please enter again the ICAO code of the airport: "))
+            key=str(input("[::] Flight number >>> "))
         try:
-            flights=FRadar.get_flights(ICAO)
-            sleep(2)
-            print("[+] Flights: "+str(flights))
+            flights = fdata.get_flights(key)
+            if len(flights) == 0:
+                print("[!] No flights related to specific airline found !")
+                sleep(1)
+                print(f"[+] Searched using flight number > {key}")
+            else:
+                print(f"[+] Flights:")
+                for i in range(len(flights)):
+                    print(f"[>] {flights[i]}")
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(f"[*] Error message ==> {ex}")
             sleep(2)
-            print("[+] Exiting...")
-            quit(0)
+            print("[1] Return to menu")
+            print("[2] Exit")
+            num=int(input("[>] Please enter a number (from the above ones): "))
+            while num < 1 or num > 2 or num == None:
+                if num == None:
+                    print("[!] This field can't be empty !")
+                else:
+                    print("[!] Invalid number !")
+                    sleep(1)
+                    print("[*] Acceptable numbers: [1/2]")
+                sleep(1)
+                print("[1] Return to menu")
+                print("[2] Exit")
+                num=int(input("[>] Please enter again a number (from the above ones): "))
+            if num == 1:
+                clear()
+                main()
+            else:
+                clear()
+                print("[+] Exiting...")
+                sleep(1)
+                print("[+] See you next time 👋")
+                sleep(1)
+                quit(0)
+        fdata.clear_last_request()
 
     elif option == 4:
-        if platform.system() == 'Windows':
-            system("cls")
-        else:
-            system("clear")
-        IATA=str(input("[::] Please enter the IATA code of the airline: "))
-        while IATA == None or len(IATA) > 3:
-            print("[!] Invalid IATA code !")
+        clear()
+        tnum=str(input("[::] Aircraft tail number >>> "))
+        while tnum == None or tnum == '':
+            print("[!] This field can't be blank !")
             sleep(1)
-            IATA=str(input("[::] Please enter again the IATA code of the airline: "))
-        sleep(2)
-        IATA = IATA.upper()
-        ICAO=str(input("[::] Please enter the ICAO code of the airline: "))
-        while ICAO == None or len(ICAO) > 4:
-            print("[!] Invalid ICAO !")
-            sleep(1)
-            ICAO=str(input("[::] Please enter again the ICAO code of the airline: "))
-        sleep(2)
-        ICAO=ICAO.upper()
+            tnum=str(input("[::] Aircraft tail number >>> "))
+        tnum = tnum.lower().strip()
         try:
-            print(f"[+] The logo is available in this url: {FRadar.get_airline_logo(IATA,ICAO)}")
+            data = fdata.get_info_by_tail_number(tnum)
+            if len(data) == 0:
+                print("[!] No data found for specific aircraft !")
+                sleep(1)
+                print(f"[+] Searched using tail number: {tnum}")
+            else:
+                print("[+] Aircraft data:")
+                for i in range(len(data)):
+                    print(f"[>] {data[i]}")
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(f"[*] Error message ==> {ex}")
             sleep(2)
-            print("[+] Exiting...")
-            quit(0)
+            print("[1] Return to menu")
+            print("[2] Exit")
+            num=int(input("[>] Please enter a number (from the above ones): "))
+            while num < 1 or num > 2 or num == None:
+                if num == None:
+                    print("[!] This field can't be empty !")
+                else:
+                    print("[!] Invalid number !")
+                    sleep(1)
+                    print("[*] Acceptable numbers: [1/2]")
+                sleep(1)
+                print("[1] Return to menu")
+                print("[2] Exit")
+                num=int(input("[>] Please enter again a number (from the above ones): "))
+            if num == 1:
+                clear()
+                main()
+            else:
+                clear()
+                print("[+] Exiting...")
+                sleep(1)
+                print("[+] See you next time 👋")
+                sleep(1)
+                quit(0)
+        fdata.clear_last_request()
 
     elif option == 5:
-        if platform.system() == 'Windows':
-            system("cls")
-        else:
-            system("clear")
+        clear()
+        countries = fdata.get_countries()
         try:
-            country_name=str(input("[::] Please enter the name of the country: "))
-            while country_name == None:
-                print("[!] Invalid name !")
-                sleep(1)
-                country_name=str(input("[::] Please enter again the name of the country: "))
-            sleep(1)
-            print(f"[+] The flag of the country is available in this url: {FRadar.get_country_flag(country_name)}")
+            print("[+] Countries:")
+            for i in range(len(countries)):
+                print(f"[>] {countries[i]}")
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(f"[*] Error message ==> {ex}")
             sleep(2)
-            print("[+] Exiting...")
-            quit(0)
+            print("[1] Return to menu")
+            print("[2] Exit")
+            num=int(input("[>] Please enter a number (from the above ones): "))
+            while num < 1 or num > 2 or num == None:
+                if num == None:
+                    print("[!] This field can't be empty !")
+                else:
+                    print("[!] Invalid number !")
+                    sleep(1)
+                    print("[*] Acceptable numbers: [1/2]")
+                sleep(1)
+                print("[1] Return to menu")
+                print("[2] Exit")
+                num=int(input("[>] Please enter again a number (from the above ones): "))
+            if num == 1:
+                clear()
+                main()
+            else:
+                clear()
+                print("[+] Exiting...")
+                sleep(1)
+                print("[+] See you next time 👋")
+                sleep(1)
+                quit(0)
+        fdata.clear_last_request()
 
     elif option == 6:
-        if platform.system() == 'Windows':
-            system("cls")
-        else:
-            system("clear")
-        FID=int(input("[::] Please enter the flight ID: "))
-        while FID == None or FID <= 0:
-            print("[!] Invalid flight ID !")
+        clear()
+        FID=str(input("[::] Flight ID >>> "))
+        while checkID(FID):
+            if FID == None or FID == '':
+                print("[!] This field can't be blank !")
+            else:
+                print("[!] Invalid flight ID !")
+                sleep(1)
+                print("[+] Acceptable flight ID format --> XX 1234")
             sleep(1)
-            FID=int(input("[::] Please enter again the flight ID: "))
+            FID=str(input("[::] Flight ID >>> "))
         try:
             sleep(1)
-            print(f"[+] Details of the flight: {FRadar.get_flight_details(FID)}")
+            print(f"[+] Flight details >>> {fr.get_flight_details(FID)}")
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(f"[*] Error message ==> {ex}")
             sleep(2)
-            print("[+] Exiting...")
-            quit(0)
+            print("[1] Return to menu")
+            print("[2] Exit")
+            num=int(input("[>] Please enter a number (from the above ones): "))
+            while num < 1 or num > 2 or num == None:
+                if num == None:
+                    print("[!] This field can't be empty !")
+                else:
+                    print("[!] Invalid number !")
+                    sleep(1)
+                    print("[*] Acceptable numbers: [1/2]")
+                sleep(1)
+                print("[1] Return to menu")
+                print("[2] Exit")
+                num=int(input("[>] Please enter again a number (from the above ones): "))
+            if num == 1:
+                clear()
+                main()
+            else:
+                clear()
+                print("[+] Exiting...")
+                sleep(1)
+                print("[+] See you next time 👋")
+                sleep(1)
+                quit(0)
+        fdata.clear_last_request()
 
     elif option == 7:
-        if platform.system() == 'Windows':
-            system("cls")
-        else:
-            system("clear")
-        IATA=str(input("[::] Please enter the IATA code of the airport: "))
-        while IATA == None or len(IATA) > 3:
-            print("[!] Invalid IATA code !")
+        clear()
+        IATA=str(input("[::] Airport IATA code >>> "))
+        while checkIATA(IATA):
+            if IATA == None or IATA == '':
+                print("[!] This field can't be blank !")
+            else:
+                print("[!] Invalid IATA code !")
+                sleep(1)
+                print("[+] Acceptable IATA code format --> XXX")
             sleep(1)
-            IATA=str(input("[::] Please enter again the IATA code of the airport: "))
+            IATA=str(input("[::] Airport IATA code >>> "))
         sleep(1)
-        IATA = IATA.upper()
+        IATA = IATA.upper().strip()
         try:
-            print(f"[+] Information about the airport: {FData.get_airport_details(IATA)}")
+            print(f"[+] Airport info >>> {fdata.get_airport_details(IATA)}")
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(f"[*] Error message ==> {ex}")
             sleep(2)
-            print("[+] Exiting...")
-            quit(0)
+            print("[1] Return to menu")
+            print("[2] Exit")
+            num=int(input("[>] Please enter a number (from the above ones): "))
+            while num < 1 or num > 2 or num == None:
+                if num == None:
+                    print("[!] This field can't be empty !")
+                else:
+                    print("[!] Invalid number !")
+                    sleep(1)
+                    print("[*] Acceptable numbers: [1/2]")
+                sleep(1)
+                print("[1] Return to menu")
+                print("[2] Exit")
+                num=int(input("[>] Please enter again a number (from the above ones): "))
+            if num == 1:
+                clear()
+                main()
+            else:
+                clear()
+                print("[+] Exiting...")
+                sleep(1)
+                print("[+] See you next time 👋")
+                sleep(1)
+                quit(0)
+        fdata.clear_last_request()
 
     elif option == 8:
-        if platform.system() == 'Windows':
-            system("cls")
-        else:
-            system("clear")
-        IATA=str(input("[::] Please enter the IATA code of the airport: "))
-        while IATA == None or len(IATA) > 3:
-            print("[!] Invalid IATA code !")
+        clear()
+        IATA=str(input("[::] Airport IATA code >>> "))
+        while checkIATA(IATA):
+            if IATA == None or IATA == '':
+                print("[!] This field can't be blank !")
+            else:
+                print("[!] Invalid IATA code !")
+                sleep(1)
+                print("[+] Acceptable IATA code format --> XXX")
             sleep(1)
-            IATA=str(input("[::] Please enter again the IATA code of the airport: "))
+            IATA=str(input("[::] Airport IATA code >>> "))
         sleep(1)
-        IATA=IATA.upper()
+        IATA = IATA.upper().strip()
         try:
-            print(f"[+] The arrivals at the airport: {FData.get_airport_arrivals(IATA)}")
+            print(f"[+] Airport arrivals >>> {fdata.get_airport_arrivals(IATA)}")
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(f"[*] Error message ==> {ex}")
             sleep(2)
-            print("[+] Exiting...")
-            quit(0)
+            print("[1] Return to menu")
+            print("[2] Exit")
+            num=int(input("[>] Please enter a number (from the above ones): "))
+            while num < 1 or num > 2 or num == None:
+                if num == None:
+                    print("[!] This field can't be empty !")
+                else:
+                    print("[!] Invalid number !")
+                    sleep(1)
+                    print("[*] Acceptable numbers: [1/2]")
+                sleep(1)
+                print("[1] Return to menu")
+                print("[2] Exit")
+                num=int(input("[>] Please enter again a number (from the above ones): "))
+            if num == 1:
+                clear()
+                main()
+            else:
+                clear()
+                print("[+] Exiting...")
+                sleep(1)
+                print("[+] See you next time 👋")
+                sleep(1)
+                quit(0)
+        fdata.clear_last_request()
 
     elif option == 9:
-        if platform.system() == 'Windows':
-            system("cls")
-        else:
-            system("clear")
-        IATA=str(input("[::] Please enter the IATA code of the airport: "))
-        while IATA == None or len(IATA) > 3:
-            print("[!] Invalid IATA code !")
+        clear()
+        IATA=str(input("[::] Airport IATA code >>> "))
+        while checkIATA(IATA):
+            if IATA == None or IATA == '':
+                print("[!] This field can't be blank !")
+            else:
+                print("[!] Invalid IATA code !")
+                sleep(1)
+                print("[+] Acceptable IATA code format --> XXX")
             sleep(1)
-            IATA=str(input("[::] Please enter again the IATA code of the airport: "))
+            IATA=str(input("[::] Airport IATA code >>> "))
         sleep(1)
-        IATA=IATA.upper()
+        IATA = IATA.upper().strip()
         try:
-            print(f"[+] The departures of the airport: {FData.get_airport_departures(IATA)}")
+            print(f"[+] Airport's departures >>> {fdata.get_airport_departures(IATA)}")
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(f"[*] Error message ==> {ex}")
             sleep(2)
-            print("[+] Exiting...")
-            quit(0)
+            print("[1] Return to menu")
+            print("[2] Exit")
+            num=int(input("[>] Please enter a number (from the above ones): "))
+            while num < 1 or num > 2 or num == None:
+                if num == None:
+                    print("[!] This field can't be empty !")
+                else:
+                    print("[!] Invalid number !")
+                    sleep(1)
+                    print("[*] Acceptable numbers: [1/2]")
+                sleep(1)
+                print("[1] Return to menu")
+                print("[2] Exit")
+                num=int(input("[>] Please enter again a number (from the above ones): "))
+            if num == 1:
+                clear()
+                main()
+            else:
+                clear()
+                print("[+] Exiting...")
+                sleep(1)
+                print("[+] See you next time 👋")
+                sleep(1)
+                quit(0)
+        fdata.clear_last_request()
 
     elif option == 10:
-        if platform.system() == 'Windows':
-            system("cls")
-        else:
-            system("clear")
-        IATA=str(input("[::] Please enter the IATA code of the airport: "))
-        while IATA == None or len(IATA) > 3:
-            print("[!] Invalid IATA code !")
+        clear()
+        IATA=str(input("[::] Airport IATA code >>> "))
+        while checkIATA(IATA):
+            if IATA == None or IATA == '':
+                print("[!] This field can't be blank !")
+            else:
+                print("[!] Invalid IATA code !")
+                sleep(1)
+                print("[+] Acceptable IATA code format --> XXX")
             sleep(1)
-            IATA=str(input("[::] Please enter again the IATA code of the airport: "))
+            IATA=str(input("[::] Airport IATA code >>> "))
         sleep(1)
-        IATA=IATA.upper()
+        IATA = IATA.upper().strip()
         try:
-            print(f"[+] The weather at the airport: {FData.get_airport_weather(IATA)}")
+            print(f"[+] Airport weather >>> {fdata.get_airport_weather(IATA)}")
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(f"[*] Error message ==> {ex}")
             sleep(2)
-            print("[+] Exiting...")
-            quit(0)
+            print("[1] Return to menu")
+            print("[2] Exit")
+            num=int(input("[>] Please enter a number (from the above ones): "))
+            while num < 1 or num > 2 or num == None:
+                if num == None:
+                    print("[!] This field can't be empty !")
+                else:
+                    print("[!] Invalid number !")
+                    sleep(1)
+                    print("[*] Acceptable numbers: [1/2]")
+                sleep(1)
+                print("[1] Return to menu")
+                print("[2] Exit")
+                num=int(input("[>] Please enter again a number (from the above ones): "))
+            if num == 1:
+                clear()
+                main()
+            else:
+                clear()
+                print("[+] Exiting...")
+                sleep(1)
+                print("[+] See you next time 👋")
+                sleep(1)
+                quit(0)
+        fdata.clear_last_request()
 
     elif option == 11:
-        if platform.system() == 'Windows':
-            system("cls")
-        else:
-            system("clear")
-        IATA=str(input("[::] Please enter the IATA code of the airport: "))
-        while IATA == None or len(IATA) > 3:
-            print("[!] Invalid IATA code !")
+        clear()
+        IATA=str(input("[::] Airport IATA code >>> "))
+        while checkIATA(IATA):
+            if IATA == None or IATA == '':
+                print("[!] This field can't be blank !")
+            else:
+                print("[!] Invalid IATA code !")
+                sleep(1)
+                print("[+] Acceptable IATA code format --> XXX")
             sleep(1)
-            IATA=str(input("[::] Please enter again the IATA code of the airport: "))
+            IATA=str(input("[::] Airport IATA code >>> "))
         sleep(1)
-        IATA=IATA.upper()
+        IATA = IATA.upper().strip()
         try:
-            print(f"[+] Reviews for the airport: {FData.get_airport_reviews(IATA)}")
+            print(f"[+] Reviews for the airport: {fdata.get_airport_reviews(IATA)}")
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(f"[*] Error message ==> {ex}")
             sleep(2)
-            print("[+] Exiting...")
-            quit(0)
+            print("[1] Return to menu")
+            print("[2] Exit")
+            num=int(input("[>] Please enter a number (from the above ones): "))
+            while num < 1 or num > 2 or num == None:
+                if num == None:
+                    print("[!] This field can't be empty !")
+                else:
+                    print("[!] Invalid number !")
+                    sleep(1)
+                    print("[*] Acceptable numbers: [1/2]")
+                sleep(1)
+                print("[1] Return to menu")
+                print("[2] Exit")
+                num=int(input("[>] Please enter again a number (from the above ones): "))
+            if num == 1:
+                clear()
+                main()
+            else:
+                clear()
+                print("[+] Exiting...")
+                sleep(1)
+                print("[+] See you next time 👋")
+                sleep(1)
+                quit(0)
+        fdata.clear_last_request()
 
     elif option == 12:
-        if platform.system() == 'Windows':
-            system("cls")
-        else:
-            system("clear")
-        IATA=str(input("[::] Please enter the IATA code of the airport: "))
-        while IATA == None or len(IATA) > 3:
-            print("[!] Invalid IATA code !")
+        clear()
+        IATA=str(input("[::] Airport IATA code >>> "))
+        while checkIATA(IATA):
+            if IATA == None or IATA == '':
+                print("[!] This field can't be blank !")
+            else:
+                print("[!] Invalid IATA code !")
+                sleep(1)
+                print("[+] Acceptable IATA code format --> XXX")
             sleep(1)
-            IATA=str(input("[::] Please enter again the IATA code of the airport: "))
+            IATA=str(input("[::] Airport IATA code >>> "))
         sleep(1)
-        IATA=IATA.upper()
+        IATA = IATA.upper().strip()
         try:
-            print(f"[+] Stats for the requested airport: {FData.get_airport_stats(IATA)}")
+            print(f"[+] Airport stats >>> {fdata.get_airport_stats(IATA)}")
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(f"[*] Error message ==> {ex}")
             sleep(2)
-            print("[+] Exiting...")
-            quit(0)
+            print("[1] Return to menu")
+            print("[2] Exit")
+            num=int(input("[>] Please enter a number (from the above ones): "))
+            while num < 1 or num > 2 or num == None:
+                if num == None:
+                    print("[!] This field can't be empty !")
+                else:
+                    print("[!] Invalid number !")
+                    sleep(1)
+                    print("[*] Acceptable numbers: [1/2]")
+                sleep(1)
+                print("[1] Return to menu")
+                print("[2] Exit")
+                num=int(input("[>] Please enter again a number (from the above ones): "))
+            if num == 1:
+                clear()
+                main()
+            else:
+                clear()
+                print("[+] Exiting...")
+                sleep(1)
+                print("[+] See you next time 👋")
+                sleep(1)
+                quit(0)
+        fdata.clear_last_request()
 
     elif option == 13:
-        if platform.system() == 'Windows':
-            system("cls")
-        else:
-            system("clear")
+        clear()
         try:
-            print(f"[+] Zones: {FRadar.get_zones()}")
-        except Exception as ex:
+            sleep(1)
+            print(f"[+] Zones: {fr.get_zones()}")
+        except Exception as ex: 
             print("[!] Error !")
             sleep(1)
             print(f"[*] Error message ==> {ex}")
             sleep(2)
-            print("[+] Exiting...")
-            quit(0)
+            print("[1] Return to menu")
+            print("[2] Exit")
+            num=int(input("[>] Please enter a number (from the above ones): "))
+            while num < 1 or num > 2 or num == None:
+                if num == None:
+                    print("[!] This field can't be empty !")
+                else:
+                    print("[!] Invalid number !")
+                    sleep(1)
+                    print("[*] Acceptable numbers: [1/2]")
+                sleep(1)
+                print("[1] Return to menu")
+                print("[2] Exit")
+                num=int(input("[>] Please enter again a number (from the above ones): "))
+            if num == 1:
+                clear()
+                main()
+            else:
+                clear()
+                print("[+] Exiting...")
+                sleep(1)
+                print("[+] See you next time 👋")
+                sleep(1)
+                quit(0)
+        fdata.clear_last_request()
 
     elif option == 14:
-        if platform.system() == 'Windows':
-            system("cls")
-        else:
-            system("clear")
+        clear()
         try:
-            print(f"[+] Current Flight: {FRadar.get_real_time_flight_tracker_config()}")
+            fconf = fr.get_flight_tracker_config()
+            lim=int(input("[::] Enter flights limit: "))
+            while lim < 1 or lim > 100 or lim == None:
+                print("[!] Invalid limit !")
+                sleep(1)
+                print("[+] Acceptable range: [1-100]")
+            lim=int(input("[::] Enter flights limit: "))
+            fconf.limit = lim
+            fr.set_flight_tracker_config(fconf)
+            print(f"[+] Flights >>> {fr.get_flights}")
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(f"[*] Error message ==> {ex}")
             sleep(2)
-            print("[+] Exiting...")
-            quit(0)
+            print("[1] Return to menu")
+            print("[2] Exit")
+            num=int(input("[>] Please enter a number (from the above ones): "))
+            while num < 1 or num > 2 or num == None:
+                if num == None:
+                    print("[!] This field can't be empty !")
+                else:
+                    print("[!] Invalid number !")
+                    sleep(1)
+                    print("[*] Acceptable numbers: [1/2]")
+                sleep(1)
+                print("[1] Return to menu")
+                print("[2] Exit")
+                num=int(input("[>] Please enter again a number (from the above ones): "))
+            if num == 1:
+                clear()
+                main()
+            else:
+                clear()
+                print("[+] Exiting...")
+                sleep(1)
+                print("[+] See you next time 👋")
+                sleep(1)
+                quit(0)
+        fdata.clear_last_request()
 
     elif option == 15:
-        if platform.system() == 'Windows':
-            system("cls")
-        else:
-            system("clear")
+        clear()
+        sleep(1)
         webbrowser.open("https://en.wikipedia.org/wiki/List_of_airports_by_IATA_airport_code:_A")
-        quit(0)
+        print("[1] Return to menu")
+        print("[2] Exit")
+        num=int(input("[>] Please enter a number (from the above ones): "))
+        while num < 1 or num > 2 or num == None:
+            if num == None:
+                print("[!] This field can't be empty !")
+            else:
+                print("[!] Invalid number !")
+                sleep(1)
+                print("[*] Acceptable numbers: [1/2]")
+            sleep(1)
+            print("[1] Return to menu")
+            print("[2] Exit")
+            num=int(input("[>] Please enter again a number (from the above ones): "))
+        if num == 1:
+            clear()
+            main()
+        else:
+            clear()
+            print("[+] Exiting...")
+            sleep(1)
+            print("[+] See you next time 👋")
+            sleep(1)
+            quit(0)
+        fdata.clear_last_request()
+
+    elif option == 16:
+        clear()
+        IATA=str(input("[::] Airport IATA code >>> "))
+        while checkIATA(IATA):
+            if IATA == None or IATA == '':
+                print("[!] This field can't be blank !")
+            else:
+                print("[!] Invalid IATA code !")
+                sleep(1)
+                print("[+] Acceptable IATA code format --> XXX")
+            sleep(1)
+            IATA=str(input("[::] Airport IATA code >>> "))
+        IATA = IATA.upper().strip()
+        try:
+            print(f"[+] Aircrafts on airport >>> {fdata.get_airport_metars(IATA)}")
+        except Exception as ex:
+            print("[!] Error !")
+            sleep(1)
+            print(f"[*] Error message ==> {ex}")
+            sleep(2)
+            print("[1] Return to menu")
+            print("[2] Exit")
+            num=int(input("[>] Please enter a number (from the above ones): "))
+            while num < 1 or num > 2 or num == None:
+                if num == None:
+                    print("[!] This field can't be empty !")
+                else:
+                    print("[!] Invalid number !")
+                    sleep(1)
+                    print("[*] Acceptable numbers: [1/2]")
+                sleep(1)
+                print("[1] Return to menu")
+                print("[2] Exit")
+                num=int(input("[>] Please enter again a number (from the above ones): "))
+            if num == 1:
+                clear()
+                main()
+            else:
+                clear()
+                print("[+] Exiting...")
+                sleep(1)
+                print("[+] See you next time 👋")
+                sleep(1)
+                quit(0)
+        fdata.clear_last_request()
+
+    elif option == 17:
+        clear()
+        fnum=str(input("[::] Flight number >>> "))
+        while fnum == None or fnum == '':
+            if fnum == None or fnum == '':
+                print("[!] This field can't be blank !")
+            sleep(1)
+            fnum=str(input("[::] Flight number >>> "))
+        fnum = fnum.upper().strip()
+        try:
+            print(f"[+] Aircraft history >>> {fdata.get_all_available_history_by_flight_number(fnum)}")
+        except Exception as ex:
+            print("[!] Error !")
+            sleep(1)
+            print(f"[*] Error message ==> {ex}")
+            sleep(2)
+            print("[1] Return to menu")
+            print("[2] Exit")
+            num=int(input("[>] Please enter a number (from the above ones): "))
+            while num < 1 or num > 2 or num == None:
+                if num == None:
+                    print("[!] This field can't be empty !")
+                else:
+                    print("[!] Invalid number !")
+                    sleep(1)
+                    print("[*] Acceptable numbers: [1/2]")
+                sleep(1)
+                print("[1] Return to menu")
+                print("[2] Exit")
+                num=int(input("[>] Please enter again a number (from the above ones): "))
+            if num == 1:
+                clear()
+                main()
+            else:
+                clear()
+                print("[+] Exiting...")
+                sleep(1)
+                print("[+] See you next time 👋")
+                sleep(1)
+                quit(0)
+        fdata.clear_last_request()
 
     else:
-        print("[+] Thank you for using my script 😁")
+        print("[+] Thank you for using SkyData 😁")
         sleep(2)
+        print("[+] See you next time 👋")
+        sleep(1)
+        quit(0)
+
+    print("\n\n")
+    print("[1] Return to menu")
+    print("[2] Exit")
+    num=int(input("[>] Please enter a number (from the above ones): "))
+    while num < 1 or num > 2 or num == None:
+        if num == None:
+            print("[!] This field can't be empty !")
+        else:
+            print("[!] Invalid number !")
+            sleep(1)
+            print("[*] Acceptable numbers: [1/2]")
+        sleep(1)
+        print("[1] Return to menu")
+        print("[2] Exit")
+        num=int(input("[>] Please enter again a number (from the above ones): "))
+    if num == 1:
+        clear()
+        main()
+    else:
+        clear()
+        print("[+] Exiting...")
+        sleep(1)
         print("[+] See you next time 👋")
         sleep(1)
         quit(0)
