@@ -1,1 +1,2 @@
 pyflightdata == 0.8.6.2
+FlightRadarAPI == 1.2.8
