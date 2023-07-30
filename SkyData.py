@@ -125,7 +125,7 @@ def ScriptInfo():
         fsize = 0
     api = None
     stars = 8
-    forks = 5
+    forks = 4
     issues = 0
     clissues = 0
     prs = 0
