@@ -2,6 +2,7 @@
 """
 Author: new92
 Github: @new92
+Leetcode: @new92
 
 SkyData: Is a Python script which displays information about airplanes, airlines, airports but it can also be used to track a specific flight !
 """
@@ -16,14 +17,14 @@ try:
         Linux: apt install python3
         Windows: https://www.python.org/downloads/
         MacOS: https://docs.python-guide.org/starting/install3/osx/""")
-        sleep(2)
+        sleep(3)
         print("[*] Please install Python 3 and then use SkyData ✅")
         sleep(2)
         print("[+] Exiting...")
         sleep(1)
         quit(0)
     from tqdm import tqdm
-    total_mods = 8
+    total_mods = 9
     bar = tqdm(total=total_mods, desc='Loading modules', unit='module')
     for _ in range(total_mods):
         sleep(0.75)
@@ -31,6 +32,7 @@ try:
     bar.close()
     import platform
     import string
+    import json
     from os import system
     import os
     import webbrowser
@@ -99,7 +101,7 @@ except ImportError or ModuleNotFoundError:
     elif platform.system() == 'Windows':
         system("pip install -r requirements.txt")
 
-print(f"[SUCCESS] Successfully loaded modules ✓")
+print(f"[✓] Successfully loaded modules !")
 sleep(1)
 
 def fpath(fname: str):
@@ -112,42 +114,31 @@ UPPERS = list(string.ascii_uppercase)
 DIGS = list(string.digits)
 
 def ScriptInfo():
-    author = 'new92'
-    lice = 'MIT'
-    lang = 'Python'
-    language = 'en-US'
-    name = 'SkyData'
-    f = name + '.py'
-    lns = 1015
+    with open('config.json') as config:
+        conf = json.load(config)
+    f = conf['name'] + '.py'
     if os.path.exists(fpath(f)):
         fsize = os.stat(f).st_size
     else:
         fsize = 0
-    api = None
-    stars = 8
-    forks = 4
-    issues = 0
-    clissues = 0
-    prs = 0
-    clprs = 3
-    discs = 1
-    print(f"[+] Author: {author}")
-    print(f"[+] License: {lice}")
-    print(f"[+] Programming language(s) used: {lang}")
-    print(f"[+] Natural language(s): {language}")
-    print(f"[+] Script's name: {name}")
-    print(f"[+] File size: {fsize}")
-    print(f"[+] Path to the script: {fpath(f)}")
-    print(f"[+] Lines of code: {lns}")
-    print(f"[+] API(s) used: {api}")
+    print(f"[+] Author: {conf['author']}")
+    print(f"[+] Github: @{conf['author']}")
+    print(f"[+] License: {conf['lice']}")
+    print(f"[+] Natural language: {conf['lang']}")
+    print(f"[+] Programming language(s) used: {conf['language']}")
+    print(f"[+] Number of lines: {conf['lines']}")
+    print(f"[+] Script's name: {conf['name']}")
+    print(f"[+] API(s) used: {conf['api']}")
+    print(f"[+] File size: {fsize} bytes")
+    print(f"[+] File path: {fpath(f)}")
     print(f"|======|GITHUB REPO INFO|======|")
-    print(f"[+] Stars: {stars}")
-    print(f"[+] Forks: {forks}")
-    print(f"[+] Open issues: {issues}")
-    print(f"[+] Closed issues: {clissues}")
-    print(f"[+] Open pull requests: {prs}")
-    print(f"[+] Closed pull requests: {clprs}")
-    print(f"[+] Discussions: {discs}")
+    print(f"[+] Stars: {conf['stars']}")
+    print(f"[+] Forks: {conf['forks']}")
+    print(f"[+] Open issues: {conf['issues']}")
+    print(f"[+] Closed issues: {conf['clissues']}")
+    print(f"[+] Open pull requests: {conf['prs']}")
+    print(f"[+] Closed pull requests: {conf['clprs']}")
+    print(f"[+] Discussions: {conf['discs']}")
 
 def clear():
     if platform.system() == 'Windows':
