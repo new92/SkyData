@@ -141,10 +141,7 @@ def ScriptInfo():
     print(f"[+] Discussions: {conf['discs']}")
 
 def clear():
-    if platform.system() == 'Windows':
-        system('cls')
-    else:
-        system('clear')
+    system('cls') if platform.system() == 'Windows' else system('clear')
 
 def checkID(fid:str) -> bool:
     return fid == None or fid == '' or len(fid) < 1 or len(fid) > 7 or fid[:2] not in UPPERS or len([i for i in fid[3:] if i in DIGS]) != len(fid[3:])
