@@ -69,7 +69,7 @@ of my friend's flight.
 - Well the data are coming from the FlightRadar24 API which is using the ADS-B technology,
 the MLAT and satellites. So, yes the data are reliable 🙂
 
-#### ❔ Where can I access the IATA and ICAO codes ?
+#### ❔ Where can I find the IATA and ICAO codes ?
 
 The IATA and ICAO codes can be accessed via these urls:
 
