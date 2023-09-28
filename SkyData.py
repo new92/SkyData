@@ -101,7 +101,7 @@ except ImportError or ModuleNotFoundError:
     elif platform.system() == 'Windows':
         system("pip install -r requirements.txt")
 
-print(f"[✓] Successfully loaded modules !")
+print("[✓] Successfully loaded modules !")
 sleep(1)
 
 def fpath(fname: str):
