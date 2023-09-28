@@ -167,6 +167,7 @@ def main():
     print("\n")
     print("[+] Author: new92")
     print("[+] Github: @new92")
+    print("[+] Leetcode: @new92")
     print("\n")
     print("[1] Display airports")
     print("[2] Display airlines")
