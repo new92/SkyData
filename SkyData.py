@@ -117,12 +117,10 @@ def ScriptInfo():
     with open('config.json') as config:
         conf = json.load(config)
     f = conf['name'] + '.py'
-    if os.path.exists(fpath(f)):
-        fsize = os.stat(f).st_size
-    else:
-        fsize = 0
+    fsize = 0 if not os.path.exists(fpath(f)) else os.stat(fpath(f)).st_size
     print(f"[+] Author: {conf['author']}")
     print(f"[+] Github: @{conf['author']}")
+    print(f"[+] Leetcode: @{conf['author']}")
     print(f"[+] License: {conf['lice']}")
     print(f"[+] Natural language: {conf['lang']}")
     print(f"[+] Programming language(s) used: {conf['language']}")
